@@ -9,3 +9,9 @@ def create_csv(input_df):
     pd.DataFrame(cleaned_df).to_csv(filename)
     print("Writing to CSV file - " + filename)
 
+def create_excel(input_df):
+    filename = "ACC-Data-" + time.strftime("%Y-%m-%d-%H-%M-%S") + ".xlsx"
+    df = pd.DataFrame(input_df)
+    cleaned_df = df[df["SessionStatus"] == 2]
+    pd.DataFrame(cleaned_df).to_excel(filename)
+    print("Writing to excel file - " + filename)

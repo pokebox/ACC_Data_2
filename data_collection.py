@@ -15,6 +15,7 @@ def data_collection():
         "Penalty": read_graphics()["penalty"],
         "InPit": read_graphics()["isInPit"],
         "InPitLane": read_graphics()["isInPitLane"],
+        "finalFF": read_physics()["finalFF"],
         # Laps and Times
         "CurrentSector": read_graphics()["currentSectorIndex"],
         "LapsCompleted": read_graphics()["completedLaps"],
@@ -58,5 +59,30 @@ def data_collection():
         "CurrentFuel": round(read_physics()["fuel"], 3),                              # unit: litres
         "UsedFuel": round(read_graphics()["usedFuel"], 3),                            # unit: litres
         "EstimatedFuelLaps": round(read_graphics()["fuelEstimatedLaps"], 3),
+    }
+    return data
+
+
+def data_collection2():
+    graphics = read_graphics()
+    physics = read_physics()
+    static = read_static()
+    data = {
+        # Basic Info
+        "Session": graphics["ACC_SESSION_TYPE"],
+        "SessionStatus": graphics["ACC_STATUS"],
+        "Clock": graphics["Clock"],                             # unit: seconds from midnight
+        "Track": static["track"].lower(),
+        "Car": static["carModel"].lower(),
+        "CarClass": car_class(static["carModel"]).lower(),
+        # 需要的数据
+        "finalFF": physics["finalFF"],
+        "gas": physics["gas"],
+        "brake": physics["brake"],
+        "steerAngle": physics["steerAngle"],
+        "accG": physics["accG"],
+        # "轮胎滑移率": read_physics()["wheelSlip"],
+        # Weather Info
+        "RainLevel": graphics["rainIntensity"],
     }
     return data
